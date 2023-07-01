@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Work</title>
+    <!-- Add Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="d-flex justify-content-end mb-4">
+      <button type="button" class="btn btn-outline-danger" id="reset_btn">
+        Reset
+      </button>
+      <button type="button" class="btn btn-outline-secondary" id="ld_btn">
+        Light Mode
+      </button>
+    </div>
+    <div class="d-flex justify-content-center px-5">
+      <div class="d-flex flex-column justify-content-center">
+        <div class="p-2 d-flex justify-content-center">
+          <p>Minutos de trabalho</p>
+        </div>
+        <div class="p-2 d-flex justify-content-between">
+          <input type="number" name="Quantidade" min="1" id="min_input" />
+          <h2 class="display-2 px-4" id="min_h2">00</h2>
+        </div>
+      </div>
+      <div>
+        <h1 class="display-1 px-5" id="timer">00:00</h1>
+      </div>
+
+      <div class="d-flex flex-column justify-content-center">
+        <div class="p-2 d-flex justify-content-center">
+          <p>Minutos de Pausa</p>
+        </div>
+        <div class="p-2 d-flex justify-content-between">
+          <h2 class="display-2 px-4" id="sec_h2">00</h2>
+          <input type="number" name="Quantidade" min="1" id="sec_input" />
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column">
+      <div class="p-2 d-flex justify-content-center">
+        <button type="button" class="btn btn-warning" id="timer_btn">
+          Start / stop
+        </button>
+      </div>
+      <div class="p-2 d-flex justify-content-center">
+        <p>Texto explicativo e tals, com o funcionamento e outras cenas</p>
+      </div>
+    </div>
+  </body>
+</html>
