@@ -5,7 +5,7 @@
 // The main timer has "timer" id
 
 let timerInterval; // Variable to store the interval ID
-
+let stopTimer = false
 
 function bGMode() {
     bgColor = document.getElementById("ld_btn")
@@ -21,42 +21,108 @@ function bGMode() {
 }
 
 function workChange(value) {
-    if (value.length > 0) {
+    if (value.length > 1) {
         document.getElementById("work_display").innerHTML = value  
-      } else {
+        document.getElementById("work_display").dataset.value = value  
+        document.getElementById("timer").innerHTML = value + ":" + "00";
+      } else if(value.length == 1){
+        document.getElementById("work_display").innerHTML = value  
+        document.getElementById("work_display").dataset.value = value  
+        document.getElementById("timer").innerHTML = "0" +  value + ":" + "00";
+      }
+      else {
         document.getElementById("work_display").innerHTML = "00" 
+        document.getElementById("work_display").dataset.value = "00"
+        document.getElementById("timer").innerHTML = "00" + ":" + "00";
       } 
 }
 
 function pauseChange(value) {
-    if (value.length > 0) {
+    if (value.length > 1) {
         document.getElementById("pause_display").innerHTML = value  
-      } else {
+        document.getElementById("pause_display").dataset.value = value  
+      } 
+      else if(value.length == 1){
+        document.getElementById("pause_display").innerHTML = value  
+        document.getElementById("pause_display").dataset.value = value  
+        document.getElementById("timer").innerHTML = "0" +  value + ":" + "00";
+      }else {
         document.getElementById("pause_display").innerHTML = "00" 
-      }   
+        document.getElementById("pause_display").dataset.value = "00"
+      }    
 
 }
 
-function startStop() {
-    controler = document.getElementById("timer_btn")
-    timer = document.getElementById("timer")
-    workTime = document.getElementById("work_display")
-    pauseTime = document.getElementById("pause_display")
+function timer(time) {
+  let remainingTime = time*60;
+  return new Promise((resolve) => {
+    interval = setInterval(() => {
+      if (stopTimer) { // Check if stopTimer is true before updating the timer display
+        clearInterval(interval);
+        console.log("Timer stopped");
+        resolve();
+      } else {
+        let minutes = (Math.floor(remainingTime / 60)).toString().padStart(2, '0'); // Get the whole minutes
+        let remainingSeconds = (remainingTime % 60).toString().padStart(2, '0'); // Get the remaining seconds
+        document.getElementById("timer").innerHTML = minutes + ":" + remainingSeconds;
+
+        remainingTime -= 1;
+        if (remainingTime < 0) {
+          clearInterval(interval);
+          console.log("Timer completed");
+          resolve();
+        }
+      }
+    }, 1000);
+  });
+  }
+  
 
 
-    if (controler.innerHTML === "START"){
-        controler.innerHTML = "STOP"
-        timerInterval = setInterval(function() {
-            // Timer logic goes here
-            // Increment the timer or perform any other actions
-            timer.
-            console.log("Timer running...");
-          }, parseInt);
+async function start() {
+  playSound("assets/tap.mp3")
+  stopTimer = false;
+  workTime = document.getElementById("work_display").dataset.value;
+  pauseTime = document.getElementById("pause_display").dataset.value;
+  document.getElementById("start_btn").style.display = "none";
+  document.getElementById("stop_btn").style.display = "block";
+
+  count = 1;
+
+  while (!stopTimer) {
+    if (count % 2 == 0) {
+      await timer(parseInt(pauseTime));
+      await playSound("assets/fart.mp3");
+      popup("Timer to work Bitch");
     } else {
-        clearInterval(timerInterval); // Clears the interval, stopping the timer
-        controler.innerHTML = "START"
-        timer.innerHTML = workTime.innerHTML
-        timer.style.backgroundColor = "green"
-        timer.style.borderradius = "2"
-    }  
+      await timer(parseInt(workTime));
+      await playSound("assets/fart.mp3");
+      popup("You can chill now");
+    }
+    count += 1;
+    console.log(count);
+  }
+}
+
+function stop() {
+  playSound("assets/tap.mp3")
+  document.getElementById("start_btn").style.display = "block";
+  document.getElementById("stop_btn").style.display = "none";
+  stopTimer = true;
+  clearInterval(interval); // Clears the interval, stopping the timer
+  document.getElementById("timer").innerHTML = document.getElementById("work_display").dataset.value;
+}
+
+function popup(text){
+  if(!confirm(text)){
+    stop()
+  }
+}
+
+function playSound(sound) {
+  return new Promise((resolve) => {
+    var audio = new Audio(sound);
+    audio.addEventListener("ended", resolve);
+    audio.play();
+  });
 }

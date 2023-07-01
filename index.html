@@ -22,9 +22,9 @@
         </div>
         <div class="input-group mb-3">
 
-          <input oninput="workChange(this.value)" type="number" id="work_input" class="form-control" aria-label="Default" min="1" value="30" aria-describedby="inputGroup-sizing-default">
+          <input oninput="workChange(this.value)" type="number" id="work_input" class="form-control" aria-label="Default" min="1"  value="30" aria-describedby="inputGroup-sizing-default">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="work_display">30</span>
+            <span class="input-group-text" id="work_display" data-value="30:00">30</span>
           </div>
         </div>
       </div>
@@ -38,15 +38,16 @@
         </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="pause_display">10</span>
+            <span class="input-group-text" id="pause_display" data-value="10">10</span>
           </div>
-          <input oninput="pauseChange(this.value)" type="number" id="pause_input" class="form-control" aria-label="Default" min="1" value="10" placeholder="10" aria-describedby="inputGroup-sizing-default">
+          <input oninput="pauseChange(this.value)" type="number" id="pause_input" class="form-control" aria-label="Default" min="1" value="10" aria-describedby="inputGroup-sizing-default">
         </div>
       </div>
     </div>
     <div class="d-flex flex-column">
       <div class="p-2 d-flex justify-content-center">
-        <button type="button" class="btn btn-warning" id="timer_btn" onclick="startStop()">START</button>
+        <button style="display: block;" type="button" class="btn btn-warning" id="start_btn" onclick="start()">START</button>
+        <button style="display: none;" type="button" class="btn btn-warning" id="stop_btn" onclick="stop()">STOP</button>
       </div>
       <div class="p-2 d-flex justify-content-center">
         <p>Texto explicativo e tals, com o funcionamento e outras cenas</p>
