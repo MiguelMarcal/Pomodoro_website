@@ -70,7 +70,7 @@ function startTimer(time) {
           resolve();
         }
       }
-    }, 60000);
+    }, 1000);
   });
 }
 
