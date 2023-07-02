@@ -70,7 +70,7 @@ function startTimer(time) {
           resolve();
         }
       }
-    }, 1000);
+    }, 100);
   });
 }
 
@@ -88,13 +88,17 @@ async function start() {
     if (count % 2 == 0) {
       await startTimer(parseInt(pauseTime));
       await playSound("assets/work.mp3");
-      popup("Timer to work Bitch");
+      await showDialog();
+
+      document.getElementById("custom-popup").style.display = "none";
       timer.classList.toggle("border-warning");
       timer.classList.toggle("border-success");
     } else {
       await startTimer(parseInt(workTime));
       await playSound("assets/pause.mp3");
-      popup("You can chill now");
+      await showDialog();
+
+      document.getElementById("custom-popup").style.display = "none";
       timer.classList.toggle("border-warning");
       timer.classList.toggle("border-success");
     }
@@ -115,12 +119,21 @@ function stop() {
   stopTimer = true;
   clearInterval(interval); // Clears the interval, stopping the timer
   document.title = "Pomodoro Work";
+  timer.classList.remove(
+    timer.classList.contains("border-warning")
+      ? "border-warning"
+      : "border-success"
+  );
 }
 
-function popup(text) {
-  if (!confirm(text)) {
-    stop();
-  }
+function showDialog() {
+  return new Promise(function (resolve) {
+    document.getElementById("custom-popup").style.display = "block";
+
+    document.getElementById("popup").addEventListener("click", function () {
+      resolve();
+    });
+  });
 }
 
 function playSound(sound) {

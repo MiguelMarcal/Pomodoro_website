@@ -11,7 +11,19 @@
     />
     <script src="main.js"></script>
   </head>
+
   <body style="background-color: #545454; color: white">
+    <div id="custom-popup" class="modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <p class="text-muted">Click To Proceed</p>
+            <button id="popup" class="btn btn-primary">Proceed</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="d-flex justify-content-end mb-4">
       <button
         type="button"
@@ -46,11 +58,7 @@
         </div>
       </div>
       <div>
-        <span
-          class="display-1 mx-3 px-2 border rounded"
-          id="timer"
-          >30:00</span
-        >
+        <span class="display-1 mx-3 px-2 border rounded" id="timer">30:00</span>
       </div>
 
       <div class="d-flex flex-column justify-content-center">
