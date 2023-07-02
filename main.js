@@ -1,9 +1,3 @@
-// Change BG button has a "ld_btn" id
-// The min Display has "work_display" id and the input has "work_input" id
-// The sec Display has "pause_display" id and the input has "pause_input" id
-// The start/stop btn has "timer_btn" id
-// The main timer has "timer" id
-
 let timerInterval; // Variable to store the interval ID
 let stopTimer = false;
 
@@ -76,7 +70,7 @@ function startTimer(time) {
           resolve();
         }
       }
-    }, 100);
+    }, 60000);
   });
 }
 
